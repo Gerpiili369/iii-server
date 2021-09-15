@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>III Control</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const
+                socket = io(),
+                form = document.querySelector('form');
+                url = document.getElementById('url');
+                index = document.getElementById('index');
+                displayListElement = document.getElementById('displayListElement');
+                displays = [];
+    
+            socket.on('displayList', displayList => {
+                displays.length = 0;
+                displays.push(...displayList);
+                updateDisplaysList()
+            });
+            socket.on('display', displayData => {
+                displays[displayData.index] = displayData.url
+                updateDisplaysList();
+            });
+            socket.emit('requestDisplayList');
+    
+            form.onsubmit = () => {
+                if (url.value) socket.emit('display', {
+                    url: url.value,
+                    index: index.value
+                });
+                return false;
+            }
+
+            function updateDisplaysList() {
+                displayListElement.innerHTML = displays.map((url, index) => url ? `<li><a href="/${index}">${url}</a></li>` :    '<li>&ltempty&gt</li>').join('\n');
+            }
+        });
+    </script>
+</head>
+<body>
+    Add/Edit Display:
+    <form>
+        <label for="url">URL</label>
+        <input type="text" name="url" id="url" placeholder="https://example.com">
+        <label for="index">Index</label>
+        <input type="number" name="index" id="index" min="0" value="0">
+        <input type="submit">
+    </form>
+    Displays:
+    <ol start="0" id="displayListElement" />
+</body>
+</html>

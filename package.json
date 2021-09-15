@@ -1,0 +1,25 @@
+{
+  "name": "iii-server",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^4.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Gerpiili369",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gerpiili369/iii-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gerpiili369/iii-server/issues"
+  },
+  "homepage": "https://github.com/Gerpiili369/iii-server#readme",
+  "description": ""
+}
